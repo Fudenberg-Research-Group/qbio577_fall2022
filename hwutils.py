@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import  sklearn.decomposition
 import matplotlib.pyplot as plt
+import seaborn as sns 
 
 def plot_pca( pca , 
              bigwig_metadata=None,
@@ -17,7 +18,8 @@ def plot_pca( pca ,
     Can be modified/extended to answer various questions.
     """
     
-    
+    plt.rcParams["font.weight"] = "bold"
+    plt.rcParams["axes.labelweight"] = "bold"
     if metadata_label_column is not None:
         if bigwig_metadata is None: 
             raise ValueError("must provide metadata table to label by a metadata column") 
@@ -26,15 +28,26 @@ def plot_pca( pca ,
                   for file_accession in pca.feature_names_in_]
         le = sklearn.preprocessing.LabelEncoder()
         le.fit(labels)
-        labels = le.transform(labels)
+        labels_t = le.transform(labels)
+        #print(np.unique(labels))
     else: 
-        labels = None
-        
-    plt.figure(figsize=figsize)
-    plt.scatter(pca.components_[0],
+        labels_t = None
+     
+    fig, ax = plt.subplots(figsize=figsize)
+    sns.scatterplot(pca.components_[0],
                 pca.components_[1],
-                c = labels,
+                hue = labels_t,
                 alpha=alpha,
-                lw=lw
-   )
+                lw=lw, 
+                palette='colorblind')
+    ax.xaxis.set_tick_params(labelsize=10)
+    if metadata_label_column is not None:
+        legend_labels, _= ax.get_legend_handles_labels()
+        ax.legend(legend_labels, np.unique(labels), bbox_to_anchor=(1,1))
+        sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
+
+    #kwargs={'fontsize':'4'}
+    #if labels is not None:
+    #    for i in range(0, len(pca.components_[0])):
+    #        ax.text(pca.components_[0][i], pca.components_[1][i], f'{labels[i]}', **kwargs)
 
