@@ -27,6 +27,8 @@ def plot_pca( pca ,
         le = sklearn.preprocessing.LabelEncoder()
         le.fit(labels)
         labels = le.transform(labels)
+        
+        
     else: 
         labels = None
         
@@ -35,6 +37,18 @@ def plot_pca( pca ,
                 pca.components_[1],
                 c = labels,
                 alpha=alpha,
-                lw=lw
-   )
+                lw=lw)
+    
+    if metadata_label_column is not None:
+        labels = [bigwig_metadata.query(
+                    "`File accession`==@ file_accession ").loc[:,metadata_label_column].values[0]
+                  for file_accession in pca.feature_names_in_]
+        le = sklearn.preprocessing.LabelEncoder()
+        le.fit(labels)
+        labels = le.transform(labels)
+        for i, txt in enumerate(labels):
+            plt.annotate(txt, (pca.components_[0][i], pca.components_[1][i]))
+          
+    
+  
 
