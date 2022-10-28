@@ -5,6 +5,8 @@ import numpy as np
 import  sklearn.decomposition
 import matplotlib.pyplot as plt
 import seaborn as sns 
+import colorcet as cc
+import math   
 
 def plot_pca( pca , 
              bigwig_metadata=None,
@@ -34,17 +36,24 @@ def plot_pca( pca ,
         labels_t = None
      
     fig, ax = plt.subplots(figsize=figsize)
+    if labels_t is not None:
+        number_labels = np.unique(labels).size
+    else:
+        number_labels = 1
+    palette = sns.color_palette(cc.glasbey, n_colors=number_labels)
     sns.scatterplot(pca.components_[0],
                 pca.components_[1],
                 hue = labels_t,
                 alpha=alpha,
                 lw=lw, 
-                palette='colorblind')
+                palette=palette)
     ax.xaxis.set_tick_params(labelsize=10)
     if metadata_label_column is not None:
         legend_labels, _= ax.get_legend_handles_labels()
         ax.legend(legend_labels, np.unique(labels), bbox_to_anchor=(1,1))
-        sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
+        sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1), ncol=math.ceil(number_labels/12))
+
+
 
     #kwargs={'fontsize':'4'}
     #if labels is not None:
