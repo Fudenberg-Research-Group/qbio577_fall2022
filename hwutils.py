@@ -28,27 +28,25 @@ def plot_pca( pca ,
         le.fit(labels)
         labels = le.transform(labels)
         
-        
-    else: 
-        labels = None
-        
-    plt.figure(figsize=figsize)
-    plt.scatter(pca.components_[0],
+        inverse_labels=le.inverse_transform(labels)
+        plt.figure(figsize=figsize)
+        scatter=plt.scatter(pca.components_[0],
                 pca.components_[1],
                 c = labels,
+                cmap='Spectral',
                 alpha=alpha,
                 lw=lw)
-    
-    if metadata_label_column is not None:
-        labels = [bigwig_metadata.query(
-                    "`File accession`==@ file_accession ").loc[:,metadata_label_column].values[0]
-                  for file_accession in pca.feature_names_in_]
-        le = sklearn.preprocessing.LabelEncoder()
-        le.fit(labels)
-        labels = le.transform(labels)
-        for i, txt in enumerate(labels):
-            plt.annotate(txt, (pca.components_[0][i], pca.components_[1][i]))
-          
-    
+        classes=np.unique(inverse_labels).tolist()
+        plt.legend(handles=scatter.legend_elements()[0], labels=classes,loc='center left', bbox_to_anchor=(1, 0.5))
+        
+         
+    else: 
+        labels = None
+        plt.figure(figsize=figsize)
+        plt.scatter(pca.components_[0],
+                    pca.components_[1],
+                    c = labels,
+                    alpha=alpha,
+                    lw=lw)
   
 
