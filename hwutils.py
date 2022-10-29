@@ -23,18 +23,19 @@ def plot_pca( pca ,
             raise ValueError("must provide metadata table to label by a metadata column") 
         labels = [bigwig_metadata.query(
                     "`File accession`==@ file_accession ").loc[:,metadata_label_column].values[0]
-                  for file_accession in pca.feature_names_in_]
+                  for file_accession in pca.feature_names_in_ ]
         le = sklearn.preprocessing.LabelEncoder()
         le.fit(labels)
         labels = le.transform(labels)
     else: 
         labels = None
-        
+
     plt.figure(figsize=figsize)
-    plt.scatter(pca.components_[0],
+    g=plt.scatter(pca.components_[0],
                 pca.components_[1],
                 c = labels,
                 alpha=alpha,
-                lw=lw
-   )
-
+                lw=lw,
+                cmap="hsv")
+    if labels is not None: 
+        plt.legend(handles = g.legend_elements()[0], labels = le.classes_.tolist(), prop={'size': 6})
