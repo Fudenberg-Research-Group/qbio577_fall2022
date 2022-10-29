@@ -37,7 +37,7 @@ def plot_pca( pca ,
                 alpha=alpha,
                 lw=lw)
         classes=np.unique(inverse_labels).tolist()
-        plt.legend(handles=scatter.legend_elements()[0], labels=classes,loc='center left', bbox_to_anchor=(1, 0.5))
+        plt.legend(handles=scatter.legend_elements(num=len(classes))[0], labels=classes,loc='center left', bbox_to_anchor=(1, 0.5))
         
          
     else: 
