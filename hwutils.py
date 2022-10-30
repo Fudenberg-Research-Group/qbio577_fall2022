@@ -19,7 +19,7 @@ def plot_pca(pca ,
              showonly_column=False,
              showonly=False,
              showlabels=True,
-             ax = None):
+             ax = None, i = None):
     
     """ 
     Skeleton for plotting PCA and annotating the plot. 
@@ -56,15 +56,19 @@ def plot_pca(pca ,
                 c = [ labels_transformed[i] for i in show_idx]
                 
                 labels = list(le.inverse_transform(c))
-                print(ax)
-                plt.scatter(pc1, pc2, c = c, alpha=0.8, lw=0, ax=ax)
+
+                if ax is not None:
+                    ax[np.floor(i/6).astype(int)][i%6].scatter(pc1, pc2, c = c, alpha=0.8, lw=0)
+                else:
+                    plt.scatter(pc1, pc2, c = c, alpha=0.8, lw=0)
+
 
             else:
                 plt.scatter(np.delete(pca.components_[0], filter_idx, 0),
                                 np.delete(pca.components_[1], filter_idx, 0),
                                 c = np.delete(labels_transformed, filter_idx, 0),
                                 alpha=0.8,
-                                lw=0, ax=ax)
+                                lw=0)
 
         else:
             if showonly is not False:
@@ -110,20 +114,36 @@ def plot_pca(pca ,
         if showonly is not False:
             for idx, (x,y) in enumerate(zip(pc1,pc2)):
                 label = labels[idx]
-                plt.annotate(label, # this is the text
-                            (x,y), # these are the coordinates to position the label
-                            textcoords="offset points", # how to position the text
-                            xytext=(0,10), # distance from text to points (x,y)
-                            ha='center',
-                            fontsize=8, ax=ax) # horizontal alignment can be left, right or center
+                if ax is not None:
+                    ax[np.floor(i/6).astype(int)][i%6].annotate(label, # this is the text
+                                (x,y), # these are the coordinates to position the label
+                                textcoords="offset points", # how to position the text
+                                xytext=(0,10), # distance from text to points (x,y)
+                                ha='center',
+                                fontsize=8) # horizontal alignment can be left, right or center
+                else:
+                    plt.annotate(label, # this is the text
+                                (x,y), # these are the coordinates to position the label
+                                textcoords="offset points", # how to position the text
+                                xytext=(0,10), # distance from text to points (x,y)
+                                ha='center',
+                                fontsize=8) # horizontal alignment can be left, right or center
 
         else:
             for idx, (x,y) in enumerate(zip(pca.components_[0],pca.components_[1])):
                 label = labels[idx]
-                plt.annotate(label, # this is the text
-                            (x,y), # these are the coordinates to position the label
-                            textcoords="offset points", # how to position the text
-                            xytext=(0,10), # distance from text to points (x,y)
-                            ha='center',
-                            fontsize=8,ax=ax) # horizontal alignment can be left, right or center
+                if ax is not None:
+                    ax[np.floor(i/6).astype(int)][i%6].annotate(label, # this is the text
+                                (x,y), # these are the coordinates to position the label
+                                textcoords="offset points", # how to position the text
+                                xytext=(0,10), # distance from text to points (x,y)
+                                ha='center',
+                                fontsize=8) # horizontal alignment can be left, right or center
+                else:
+                    plt.annotate(label, # this is the text
+                                (x,y), # these are the coordinates to position the label
+                                textcoords="offset points", # how to position the text
+                                xytext=(0,10), # distance from text to points (x,y)
+                                ha='center',
+                                fontsize=8) # horizontal alignment can be left, right or center
     
