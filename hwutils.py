@@ -68,11 +68,20 @@ def plot_pca(pca ,
 
 
             else:
-                plt.scatter(np.delete(pca.components_[0], filter_idx, 0),
+                if ax is not None:
+                    # just good for 1-row subplots
+                    ax[i].scatter(np.delete(pca.components_[0], filter_idx, 0),
+                                                            np.delete(pca.components_[1], filter_idx, 0),
+                                                            c = np.delete(labels_transformed, filter_idx, 0),
+                                                            alpha=0.8,
+                                                            lw=0)
+                else:
+                    plt.scatter(np.delete(pca.components_[0], filter_idx, 0),
                                 np.delete(pca.components_[1], filter_idx, 0),
                                 c = np.delete(labels_transformed, filter_idx, 0),
                                 alpha=0.8,
                                 lw=0)
+
 
         else:
             if showonly is not False:
