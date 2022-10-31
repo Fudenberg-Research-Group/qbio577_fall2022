@@ -10,7 +10,8 @@ def plot_pca( pca ,
              metadata_label_column=None, 
              alpha=0.5, 
              lw=0, 
-             figsize=(8,8)):
+             figsize=(8,8),
+             s=10):
     
     """ 
     Skeleton for plotting PCA and annotating the plot. 
@@ -36,6 +37,8 @@ def plot_pca( pca ,
                 c = labels,
                 alpha=alpha,
                 lw=lw,
-                cmap="hsv")
+                cmap="nipy_spectral",
+                s=s)
     if labels is not None: 
-        plt.legend(handles = g.legend_elements()[0], labels = le.classes_.tolist(), prop={'size': 6})
+        classes=le.classes_.tolist()
+        plt.legend(handles = g.legend_elements(num=len(classes))[0], labels = classes, prop={'size': 6}, bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0)
