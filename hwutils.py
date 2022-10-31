@@ -19,7 +19,7 @@ def plot_pca(pca ,
              showonly_column=False,
              showonly=False,
              showlabels=True,
-             ax = None, i = None):
+             ax = None, i = None, ax_col_size=6, ax_row_size=6):
     
     """ 
     Skeleton for plotting PCA and annotating the plot. 
@@ -58,7 +58,11 @@ def plot_pca(pca ,
                 labels = list(le.inverse_transform(c))
 
                 if ax is not None:
-                    ax[np.floor(i/6).astype(int)][i%6].scatter(pc1, pc2, c = c, alpha=0.8, lw=0)
+                    if ax_row_size > 1:
+                        ax[np.floor(i/ax_col_size).astype(int)][i%ax_col_size].scatter(pc1, pc2, c = c, alpha=0.8, lw=0)
+                    else:
+                        ax[i].scatter(pc1, pc2, c = c, alpha=0.8, lw=0)
+
                 else:
                     plt.scatter(pc1, pc2, c = c, alpha=0.8, lw=0)
 
@@ -115,7 +119,7 @@ def plot_pca(pca ,
             for idx, (x,y) in enumerate(zip(pc1,pc2)):
                 label = labels[idx]
                 if ax is not None:
-                    ax[np.floor(i/6).astype(int)][i%6].annotate(label, # this is the text
+                    ax[np.floor(i/ax_col_size).astype(int)][i%ax_col_size].annotate(label, # this is the text
                                 (x,y), # these are the coordinates to position the label
                                 textcoords="offset points", # how to position the text
                                 xytext=(0,10), # distance from text to points (x,y)
@@ -133,7 +137,7 @@ def plot_pca(pca ,
             for idx, (x,y) in enumerate(zip(pca.components_[0],pca.components_[1])):
                 label = labels[idx]
                 if ax is not None:
-                    ax[np.floor(i/6).astype(int)][i%6].annotate(label, # this is the text
+                    ax[np.floor(i/ax_row_size).astype(int)][i%ax_row_size].annotate(label, # this is the text
                                 (x,y), # these are the coordinates to position the label
                                 textcoords="offset points", # how to position the text
                                 xytext=(0,10), # distance from text to points (x,y)
