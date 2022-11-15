@@ -60,4 +60,12 @@ def plot_pca(pca ,
             plt.text(pca.components_[0][x], pca.components_[1][x], str(x))
 
     plt.show()
+    
+def autocorrelation(labels, df, experiment, color):
+    for y in range(len(labels)):
+        if labels[y] == experiment:
+            auto = pd.plotting.autocorrelation_plot(df.iloc[:, 3+y], c=color)
+            auto.plot()
+    plt.title(experiment+" Autocorrelation")
+    plt.show()
 
