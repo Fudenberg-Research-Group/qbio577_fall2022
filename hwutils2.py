@@ -1,10 +1,8 @@
-# useful libraries to import
-
+import sklearn
 import pandas as pd
 import numpy as np
 import  sklearn.decomposition
 import matplotlib.pyplot as plt
-
 def plot_pca( pca , 
              bigwig_metadata=None,
              metadata_label_column=None, 
@@ -29,25 +27,20 @@ def plot_pca( pca ,
         labels = le.transform(labels)
     else: 
         labels = None
-        
+    
+
+    new_labels = le.inverse_transform(labels)
     plt.figure(figsize=figsize)
-    plt.scatter(pca.components_[0],
+    c = np.random.rand(5)
+    scatter = plt.scatter(pca.components_[0],
                 pca.components_[1],
                 c = labels,
+                cmap = 'Spectral',
                 alpha=alpha,
                 lw=lw
    )
-
-
-
-
-
-def determinePC(pca):
-    cum_variance = pca.explained_variance_ratio_.cumsum()
-    count = 1
-    for i in cum_variance:
-        if i > 0.9:
-            print(count)
-            break
-        else:
-            count += 1
+    classes=np.unique(new_labels).tolist()
+#    plt.legend(handles=scatter.legend_elements()[0],labels=classes,loc='center left', bbox_to_anchor=(1, 0.5))
+    plt.legend(handles=scatter.legend_elements(num=len(classes))[0], labels=classes,loc='center left', bbox_to_anchor=(1, 0.5))
+#    for i, txt in enumerate(new_labels):
+#        plt.annotate(txt, (pca.components_[0][i], pca.components_[1][i]))
