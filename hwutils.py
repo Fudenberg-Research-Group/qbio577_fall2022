@@ -124,7 +124,8 @@ def plot_pca(pca ,
 
     # display labels for data points on the plot
     if label_display is True:
-        if showonly is not False:
+        label_plot(showonly, pc1, pc2, labels, ax, pca, ax_row_size, ax_col_size, i)
+        """ if showonly is not False:
             for idx, (x,y) in enumerate(zip(pc1,pc2)):
                 label = labels[idx]
                 if ax is not None:
@@ -158,5 +159,57 @@ def plot_pca(pca ,
                                 textcoords="offset points", # how to position the text
                                 xytext=(0,10), # distance from text to points (x,y)
                                 ha='center',
+                                fontsize=8) # horizontal alignment can be left, right or center """
+
+def label_plot(showonly, component1, component2, labelList, axes, pca, ax_row_size, ax_col_size, index):
+    """
+    Labels each point on the PCA plot with given metadata labels
+
+    Keyword arguments:
+    showonly -- use the prefiltered list of labels, given by showonly_column
+    component1 -- the first PCA component, possibly subject to prior modification
+    component2 -- the second PCA component, possibly subject to prior modification
+    labeList -- the list of labels for each data point
+    axes -- the labels for the axes 
+    pca -- PCA object
+    index -- the adjusting index for column index 
+    ax_row_size -- the size of the labels for the row index
+    ax_col_size -- the size of the labels for the column index
+    """
+    if showonly is not False:
+            for idx, (x,y) in enumerate(zip(component1,component2)):
+                label = labelList[idx]
+                if axes is not None:
+                    axes[np.floor(index/ax_col_size).astype(int)][index%ax_col_size].annotate(label, # this is the text
+                                (x,y), # these are the coordinates to position the label
+                                textcoords="offset points", # how to position the text
+                                xytext=(0,10), # distance from text to points (x,y)
+                                ha='center',
                                 fontsize=8) # horizontal alignment can be left, right or center
+                else:
+                    plt.annotate(label, # this is the text
+                                (x,y), # these are the coordinates to position the label
+                                textcoords="offset points", # how to position the text
+                                xytext=(0,10), # distance from text to points (x,y)
+                                ha='center',
+                                fontsize=8) # horizontal alignment can be left, right or center
+
+    else:
+        for idx, (x,y) in enumerate(zip(pca.components_[0],pca.components_[1])):
+            label = labelList[idx]
+            if axes is not None:
+                axes[np.floor(index/ax_row_size).astype(int)][index%ax_row_size].annotate(label, # this is the text
+                            (x,y), # these are the coordinates to position the label
+                            textcoords="offset points", # how to position the text
+                            xytext=(0,10), # distance from text to points (x,y)
+                            ha='center',
+                            fontsize=8) # horizontal alignment can be left, right or center
+            else:
+                plt.annotate(label, # this is the text
+                            (x,y), # these are the coordinates to position the label
+                            textcoords="offset points", # how to position the text
+                            xytext=(0,10), # distance from text to points (x,y)
+                            ha='center',
+                            fontsize=8) # horizontal alignment can be left, right or center
+
     
