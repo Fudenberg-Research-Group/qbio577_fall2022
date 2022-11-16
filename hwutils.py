@@ -62,6 +62,30 @@ def plot_pca(pca ,
     plt.show()
     
 def autocorrelation(labels, df, experiment, color):
+    """
+    Plot the autocorrelation.
+
+    This function computes the autocorrelation of assays and outputs a plot
+
+    Parameters
+    ----------
+    labels: list 
+        List of assays 
+    
+    df: dataframe
+        Data used for autocorrelation
+        
+    experiement: str
+        Name of assay
+        
+    color: str
+        Color for plot
+
+    Returns
+    -------
+    plot
+        The autocorrelation of Histone ChIP-seq and TF ChIP-seq.
+    """
     for y in range(len(labels)):
         if labels[y] == experiment:
             auto = pd.plotting.autocorrelation_plot(df.iloc[:, 3+y], c=color)
