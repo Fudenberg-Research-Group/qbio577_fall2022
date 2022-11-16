@@ -1,43 +1,30 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2638
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+#Question 1 
 
-\f0\fs24 \cf0 #Question 1 \
-\
-The heat map is a good visualization as it shows a drop around 40Mb and the contrast is stark.\
-\
-#Question 2 \
-\
-The addition of the labels of the variance explained by each PC helped us get a better understanding of the PCA plot. \
-\
-#Question 3\
-\
-For this question, we think that a for loop would have been good to plot the PCA by the different factors from the metadata. It would have been more concise. \
-\
-#Question 4 \
-\
-The auto_res.loc were not necessary (in our opinion) to show for multiple cell types across different assays as they visualize that earlier in the autocorrelation plots. They also printed out autocorrelation values that we didn\'92t think were necessary as they are included in the visualization. \
-\
-# Question 5\
-We wrote a new function plot_pca_celltype that visualizes the PCA plot by experiment target across different cell types. We saw that they use this visualization later on, so we thought it would be appropriate to write a function in hwutils that summarizes this. \
-\
-#Question 6\
-We noticed that after they filtered the data based on \'93AUDIT ERROR\'94, they actually went back and used the unfiltered data in the normalization (we believe this is by accident). This led to some inconsistencies between the different data frames  in the rest of the questions, as they were running the rest of the analyses on the unfiltered data instead of the filtered df. \
-\
-#Question 7 \
-There were two scree plots; one showed the variance explained by each PC and the other showed the cumulative variance explained. We believe this could be reduced into just one scree plot. \
-\
-#Question 8 \
-They used the cosine similarity measure which was cool! We didn\'92t think about doing that.\
-\
-#Question 9 \
-The \'93meta genes\'94 part of the explanation was new to us and thought it was cool to read.\
-\
-\
-\
-\
-\
-}
+The heat map is a good visualization as it shows a drop around 40Mb and the contrast is stark.
+
+#Question 2 
+
+The addition of the labels of the variance explained by each PC helped us get a better understanding of the PCA plot. 
+
+#Question 3
+
+For this question, we think that a for loop would have been good to plot the PCA by the different factors from the metadata. It would have been more concise. 
+
+#Question 4 
+
+The auto_res.loc were not necessary (in our opinion) to show for multiple cell types across different assays as they visualize that earlier in the autocorrelation plots. They also printed out autocorrelation values that we didn’t think were necessary as they are included in the visualization. 
+
+# Question 5
+We wrote a new function plot_pca_celltype that visualizes the PCA plot by experiment target across different cell types. We saw that they use this visualization later on, so we thought it would be appropriate to write a function in hwutils that summarizes this. 
+
+#Question 6
+We noticed that after they filtered the data based on “AUDIT ERROR”, they actually went back and used the unfiltered data in the normalization (we believe this is by accident). This led to some inconsistencies between the different data frames  in the rest of the questions, as they were running the rest of the analyses on the unfiltered data instead of the filtered df. 
+
+#Question 7 
+There were two scree plots; one showed the variance explained by each PC and the other showed the cumulative variance explained. We believe this could be reduced into just one scree plot. 
+
+#Question 8 
+They used the cosine similarity measure which was cool! We didn’t think about doing that.
+
+#Question 9 
+The “meta genes” part of the explanation was new to us and thought it was cool to read.
