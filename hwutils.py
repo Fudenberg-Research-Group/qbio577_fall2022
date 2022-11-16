@@ -40,5 +40,5 @@ def plot_pca( pca ,
                 cmap="nipy_spectral",
                 s=s)
     if labels is not None: 
-        classes=le.classes_.tolist()
-        plt.legend(handles = g.legend_elements(num=len(classes))[0], labels = classes, prop={'size': 6}, bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0)
+        plt.legend(handles = g.legend_elements()[0], labels = le.classes_.tolist(), prop={'size': 6}, bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0)
+        plt.title('PCA By: '+metadata_label_column)
