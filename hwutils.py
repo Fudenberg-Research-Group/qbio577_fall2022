@@ -38,3 +38,16 @@ def plot_pca( pca ,
                 lw=lw
    )
 
+
+
+
+
+def determinePC(pca):
+    cum_variance = pca.explained_variance_ratio_.cumsum()
+    count = 1
+    for i in cum_variance:
+        if i > 0.9:
+            print(count)
+            break
+        else:
+            count += 1
